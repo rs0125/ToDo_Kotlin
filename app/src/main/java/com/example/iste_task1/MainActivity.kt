@@ -19,21 +19,27 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -111,16 +117,25 @@ fun topbar(){
     }
 }
 @Composable
-fun cardkumar(task : String){
+fun cardkumar(task : String, completed: Boolean){
+    var checked by remember { mutableStateOf(completed) }
     Card (modifier = Modifier
         .fillMaxWidth()
         .padding(12.dp)){
         Row (verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(text = task, modifier = Modifier.padding(16.dp)
-                . fillMaxWidth(0.85F))
-            Icon(imageVector = Icons.Default.Check, contentDescription = "cross icon", modifier = Modifier.padding(16.dp)
+            Text(text = task, modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(0.85F),
+                fontSize = 16.sp,
+
+                style = TextStyle(
+                    textDecoration = if (checked) TextDecoration.LineThrough
+                    else TextDecoration.None
+                )
             )
+            Checkbox(checked = checked,
+                onCheckedChange = { checked = it })
         }
 
     }
@@ -132,9 +147,9 @@ fun cardkumar(task : String){
 fun displaycards(){
     Column {
         Text(text = "Tasks To Complete:", modifier = Modifier.padding(12.dp), fontSize = 24.sp)
-        cardkumar("Lorem Ipsum")
-        cardkumar("Lorem Ipsum")
-        cardkumar("Lorem Ipsum")
+        cardkumar("Lorem Ipsum", false)
+        cardkumar("Lorem Ipsum",  true)
+        cardkumar("Lorem Ipsum", false)
     }
 
 
