@@ -65,22 +65,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ISTE_task1Theme {
-        Greeting("Android")
-    }
-}
-
 
 @Composable
 fun inputkumar(){
